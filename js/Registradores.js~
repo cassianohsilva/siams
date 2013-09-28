@@ -119,7 +119,7 @@ function Registradores () {
 	},{
 		nome : "$sp",
 		numero : 29,
-		valor : 4294967295
+		valor : 1073741823
 	},{
 		nome : "$fp",
 		numero : 30,
@@ -131,6 +131,8 @@ function Registradores () {
 	}];
 	
 	this.pc = {
+		valor : 0,
+		numero : 'pc'
 		valor : 0
 	};
 	

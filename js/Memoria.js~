@@ -4,7 +4,6 @@
 	
 	this.setConteudo = function (posicao, valor) {
 		memoria[posicao] = valor;
-		memoria[1073741823] = 2;
 	}
 	
 	this.getConteudo = function (posicao) {

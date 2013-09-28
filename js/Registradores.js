@@ -131,6 +131,8 @@ function Registradores () {
 	}];
 	
 	this.pc = {
+		valor : 0,
+		numero : 'pc',
 		valor : 0
 	};
 	

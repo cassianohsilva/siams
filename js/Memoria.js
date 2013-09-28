@@ -22,6 +22,19 @@
 		labels[labels.length] = {nome: tempnome, endereco: tempendereco};
 		return true;
 	}
+
+	this.pegarLabels = function () {
+		var codigo = $("#codigo").val().split('\n');
+		var regex = /\w+\s*:/gi;
+		
+		for (var k = 0; k < codigo.length; k++) {
+			if (codigo[k].match(regex)) {
+				var t = codigo[k].match(regex);
+				var label = t[0].replace(/\s*:/g,'');
+				this.saveLabel(label, 4*k);
+			}
+		}
+	}
 	
 	this.useLabel = function (tempnome) {
 		for (var i = 0; i < labels.length; i++) {

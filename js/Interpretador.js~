@@ -241,17 +241,17 @@ function Interpretador() {
 	
 	this.listaJump  = [
 	{
-		op: 2,
+		op: 2,											//j
 		funcao: function (jump) {
 			regs.pc.valor = jump >> 2;
 			return regs.pc;
 		}
 	},{
-		op: 3,
+		op: 3,											//jal
 		funcao: function (jump) {
 			regs.incrementaPc(4);
 			regs.lista[31].valor = regs.pc.valor;
-			regs.setPc(Math.abs(jump/4));
+			regs.setPc(Math.abs(jump));
 			return regs.pc;
 		}
 	}];
@@ -259,7 +259,7 @@ function Interpretador() {
 	this.step = function(instr) {
 	    	
 		if(instr.op == 0) {
-			if (instr.funct != (0 && 2)) {
+			if (instr.funct != (0 || 2)) {
 				for (var i = 0; i < this.listaArit.length; i++) { 		//tipo R
 					if (this.listaArit[i].funct == instr.funct) {
 						return this.listaArit[i].funcao(regs.lista[instr.rd], regs.lista[instr.rs], regs.lista[instr.rt]);
@@ -272,12 +272,9 @@ function Interpretador() {
 					}
 				}
 			}
-		} else if(instr.op != (2 && 3)){								//instrucao tipo I
+		} else if(instr.op != (2 || 3)){								//instrucao tipo I
 			for (var i = 0; i < this.listaNaoArit.length; i++) {
 				if (this.listaNaoArit[i].op == instr.op) {
-					alert(instr.rt);
-					alert(instr.rs);
-					alert(instr.address);
 					return this.listaNaoArit[i].funcao(regs.lista[instr.rt], regs.lista[instr.rs], instr.address);
 				}
 			}

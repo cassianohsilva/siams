@@ -17,9 +17,10 @@ function UC() {
 		
 		var atual = memoria.getConteudo(regs.pc.valor);
 		var tipo = atual & -67108864;
+		tipo >>= 26;
 		if(tipo == 0) {
 			var t = interp.step(RParaInt(atual));
-		} else if (tipo != (2 && 3)) {
+		} else if (tipo != (2 || 3)) {
 			var t = interp.step(IParaInt(atual));
 		} else {
 			var t = interp.step(JParaInt(atual));		
@@ -39,10 +40,11 @@ function UC() {
 			
 			var atual = memoria.getConteudo(regs.pc.valor);
 			var tipo = atual & -67108864;
+			tipo >>= 26;
 			if(tipo == 0) {
 				t = interp.step(RParaInt(atual));
 				modificaValor(t);
-			} else if (tipo != (2 && 3)) {
+			} else if (tipo != (2 || 3)) {
 				t = interp.step(IParaInt(atual));
 				modificaValor(t);
 			} else {

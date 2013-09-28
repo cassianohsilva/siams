@@ -1,7 +1,7 @@
 %lex
 %%
 
-\n						return 'n';
+\n						return '\n';
 \s+						;
 "add"					return 'R';
 "addu"					return 'R';
@@ -50,13 +50,14 @@
 \w+						return 'LABEL';
 "("						return '(';
 ")" 					return ')';
+":"						return ':';
 
 /lex
 
 %start 					LINE
 %%
 
-LINE			:		INST1 'n' LINE
+LINE			:		INST1 '\n' LINE
 							{
 							$$ = $1;
 							}
@@ -96,7 +97,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							$$ = binario;
 							memoria.setConteudo(yylineno, $$);
 							}
-				|		IC REGISTER ',' NUMBER '('REGISTER')' 
+				|		IC REGISTER ',' NUMBER '('REGISTER ')' 
 						   {var temp = instrucao.getOp($1);             //valor do op
 							var binario = 0;
 							binario = temp << 26;
