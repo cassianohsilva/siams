@@ -1,0 +1,100 @@
+$(document).ready(function () {
+	$("#botaoPrincipal").click(function () {
+		$('#editor').stop().slideToggle('fast');
+	});
+	
+	exibeAtalhos();
+	$('#codigo').numberfy();
+});
+
+function highlight(register, hltype) {
+	var span = document.getElementById(register).firstChild;
+	var input = document.getElementById(register).lastChild;
+	
+	switch(hltype) {
+		
+		/*
+			hltype = 0:		escrita
+			hltype = 1:		leitura
+			hltype = -1:	erro
+		*/
+		
+		case 0:
+			span.style.backgroundColor = '#00F';
+			input.style.borderColor = '#00F';
+			span.style.color = '#FFF';
+			input.style.color = '#00F';
+			break;
+		case 1:
+			span.style.backgroundColor = '#0F0';
+			input.style.borderColor = '#0F0';
+			span.style.color = '#FFF';
+			input.style.color = '#0F0';
+			break;
+		case -1:
+			span.style.backgroundColor = '#F00';
+			input.style.borderColor = '#F00';
+			span.style.color = '#FFF';
+			input.style.color = '#F00';
+			break;
+	}
+}
+
+function a () {
+	highlight('$zero',1);
+}
+
+function exibeAtalhos() {
+	
+	$(document).bind('keydown', 'Ctrl+space',function (){
+		$("#overall").stop().fadeIn();
+	});
+	$(document).bind('keydown','esc',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','Ctrl+o',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','Ctrl+s',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','Ctrl+h',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','Ctrl+p',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','F9',function () {
+		$("#overall").stop().fadeOut();
+	});
+	$(document).bind('keydown','F10',function () {
+		$("#overall").stop().fadeOut();
+	});
+		
+	$('#overall').click(function () {
+		$(this).stop().fadeOut();
+});
+}
+
+function verificarValor (inputtexto) {
+	var temp = parseInt(inputtexto.value);
+	
+	if (!isNaN(temp)) {
+		inputtexto.value = temp;
+		regs.setValor(inputtexto.id, temp);
+	} else {
+		inputtexto.value = inputtexto.old;
+		alert("O valor inserido é inválido");		
+	}
+}
+
+function imprimirRegistradores() {
+	
+	document.writeln("<div class='input-prepend' id='$zero' style='float:right;margin:1px;'><span class='add-on'>$zero: </span><input class='input-xlarge' style='background-color:#FFF;color:#000;' readOnly=true type='text' value='0'></div>");	
+	for(var i = 1; i < regs.lista.length; i++) {
+		var nome = regs.lista[i].nome;
+		var valor = regs.lista[i].valor; 
+		
+		document.writeln("<div class='input-prepend' id='" + nome + "' style='float:right;margin:1px;'><span class='add-on'>" + nome + ": </span><input class='input-xlarge' readOnly=true type='text' style='background-color:#FFF;color:#000;' value='" + valor + "' onfocus='this.readOnly = false; this.old = this.value;' onblur='this.readOnly = true;' onchange='verificarValor(this);'></div>");
+	};
+};

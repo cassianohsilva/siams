@@ -1,0 +1,137 @@
+/* Charset UTF-8 */
+
+#container {
+	position: static;
+}
+
+#corpo {
+	position: relative;
+	top: 30px;
+	bottom: 20px;
+	left: 10px;
+	right: 10px;
+}
+
+.span8, .span4 {
+	margin: 10px auto 10px auto;
+	border-radius: 7px;
+	padding: 5px;
+}
+
+#barramenu {
+	text-align: center;
+	margin: 4px auto 4px auto;
+}
+
+#barramenu * {
+	color: #000;
+}
+
+#arquivos {
+	margin-bottom: 2px;
+}
+
+#arquivos li a {
+	border-color: #DDD;
+}
+
+#editor {
+	height: 40%;
+	float: left;
+	position: relative;
+	top: 0;
+	bottom: 0;
+}
+
+#editor div {
+	display: block;
+}
+
+#divCodigo {
+}
+
+#codigo {
+	resize: none;
+	width: 100%;
+	line-height: 30px;
+	padding: 2px;
+	height: 1030px;
+}
+
+#memoria {
+	width: 100%;
+	margin: 10px 0 10px 0;
+	float: left;
+	position: relative;
+	top: 0;
+	bottom: 0;
+}
+
+.labelreg {
+	float: right;
+}
+
+#registradores {
+	float: right;
+	height: 1142px;
+}
+#registradoresin {
+	
+	overflow-y: auto;
+}
+
+#overall {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 1000000;
+	background-color: rgba(255, 255, 255, 0.5);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+}
+
+#atalhos, #instrucoes {
+	display: none;
+	border-radius: 10px;
+	border: 5px medium;
+	border-color: #333;
+	width: auto;
+	height: auto;
+	z-index: 1000001;
+	background-color: #DDD;
+	position: absolute;
+	top: 100px;
+	right: 100px;
+	bottom: 100px;
+	left: 100px;
+	font-size: 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#tituloAtalhos {
+	text-align: center;
+	border: 10px;
+	border-color: #000;
+	width: 100%;
+	margin-bottom: 30px;
+} 
+
+#instrucoes h1, #atalhos h1 {
+	text-align: center;
+	color: #333;
+}
+
+#instrucoes h4, #atahos h4, .badge {
+	font-size: 20px;
+	padding: 3px;
+	display: inline;
+	line-height: 50px;	
+}
+
+#foot {
+	bottom: 0;
+}

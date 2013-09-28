@@ -1,0 +1,99 @@
+<html>
+<head>
+<script type="text/javascript">
+      
+	var tudo = document.getElementById("texto").value;
+	var linha = tudo.split("\n");
+    
+function verificaSintaxe(){
+
+       	var r  = new Array();  
+
+    r ["ADD"] = "TR";  
+    r ["SUB"] = "TR";
+    r ["SLT"] = "TR";
+	r ["JR"] = "TR";
+	r ["AND"] = "TR";
+	r ["OR"] = "TR";
+	r ["NOR"] = "TR";
+	r ["SLL"] = "TR";
+	r ["SRL"] = "TR";
+	r ["SLT"] = "TR";
+	r ["MOVE"] = "TR";
+	r ["MULT"] = "TR";
+	r ["MULTI"] = "TI";
+	r ["LI"] = "TI";
+	r ["BLE"] = "TI";
+	r ["BLT"] = "TI";
+	r ["BGE"] = "TI";
+	r ["BGT"] = "TI";
+	r ["SW"] = "TI";
+	r ["LW"] = "TI";
+	r ["LH"] = "TI";
+	r ["SH"] = "TI";
+	r ["ANDI"] = "TI";
+	r ["ORI"] = "TI";
+	r ["ADDI"] = "TI";
+	r ["BEQ"] = "TI";
+	r ["BNE"] = "TI";
+	r ["SB"] = "TI";
+	r ["LUI"] = "TI";
+	r ["LB"] = "TI";
+	r ["SLTI"] = "TI";
+	r ["J"] = "TJ";
+	r ["JAL"] = "TJ";
+  
+ 	   var i = 0;
+	   var expr = new Array();
+	   var nova expressao = new Array();
+	while(linha.length >= i){
+	   
+	     novaexpressao[i]= linha[i].replace(/^\w*\s*:/,"");//tira as expressoes de loops
+         var patt1=/^\w*\s/;
+         expr[i]=novaexpressao[i].match(patt1);
+      
+           switch(r(expr[i].toUpperCase())){
+	     
+		    case "TR":
+		       verifSintaxeTR(novaexpressao[i]);
+			   break;
+		    case "TI":
+              verifSintaxeTI(novaexpressao[i]);
+              break;
+            case "TJ":
+              verificaSintaxeTJ(novaexpressao[i]);
+            default:
+              document.write("verificar sintaxe");
+          }			  
+		   
+	   
+	}
+		 
+
+     i++;	
+    }
+	
+    function verifSintaxeTR(expressaoTR){
+	
+	}
+	
+	function verifSintaxeTI(expressaoTI){
+	
+	}
+	
+	function verifSintaxeTJ(expressaoTJ){
+	
+	}
+    
+</script>
+</head>
+<body>
+
+
+<textarea name="texto" id="texto" rows="25" cols="25"></textarea>
+
+<button onclick="verificaSintaxe()">Try it</button>
+
+
+</body>
+</html>
