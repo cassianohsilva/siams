@@ -45,7 +45,7 @@
 "$gp"					return 'REGISTER';
 "$sp"					return 'REGISTER';
 "$fp"					return 'REGISTER';
-"$ra"					return 'REGISTER';
+"$ra"					return 'RA';
 "halt"					return 'HALT';
 \w+						return 'LABEL';
 "("						return '(';
@@ -141,6 +141,28 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							memoria.setConteudo(yylineno, $$);
 							}
 				|		JR REGISTER   
+							{
+							 var temp = instrucao.getOp($1);
+							 var binario = 0 ;
+							 binario= temp << 26;
+							 temp = regs.getNumero($2);
+							 temp = temp << 21;
+							 binario |= temp;
+							 temp = 0;
+							 temp = temp << 16;
+							 binario |= temp;
+							 temp = 0;
+							 temp = temp << 11;
+							 binario  |= temp;
+							 temp = 0;
+							 temp = temp << 6;
+							 binario  |= temp;
+							 binario |= instrucao.getFunct($1);
+							 $$ = binario;
+							 memoria.setConteudo(yylineno, $$);
+							}
+							
+				|		JR RA
 							{
 							 var temp = instrucao.getOp($1);
 							 var binario = 0 ;
