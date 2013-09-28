@@ -74,7 +74,7 @@ LINE			:		INST1 '\n' LINE
 				;
 				
 INST1			:		LABEL ':' INST
-							{memoria.saveLabel($1, regs.pc.valor);
+							{
 							$$ = $3;}
 
 				|		INST

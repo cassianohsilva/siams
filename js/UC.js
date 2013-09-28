@@ -6,6 +6,7 @@ function UC() {
 		$('#memoria ').removeClass('success');
 		
 		memoria.emptyLabels();
+		memoria.pegarLabels();
 		Montador.parse(codigo);
 		
 		imprimirMemoria();
@@ -16,18 +17,20 @@ function UC() {
 		var interp = new Interpretador();
 		
 		var atual = memoria.getConteudo(regs.pc.valor);
-		var tipo = atual & -67108864;
-		tipo >>= 26;
-		if(tipo == 0) {
-			var t = interp.step(RParaInt(atual));
-		} else if (tipo != (2 || 3)) {
-			var t = interp.step(IParaInt(atual));
-		} else {
-			var t = interp.step(JParaInt(atual));		
-		}
-		
-		modificaValor(t);
-		regs.incrementaPc(4);
+		if (atual != -2147483648) {
+			var tipo = atual & -67108864;
+			tipo >>>= 26;
+			if(tipo == 0) {
+				var t = interp.step(RParaInt(atual));
+			} else if (tipo != (2 || 3)) {
+				var t = interp.step(IParaInt(atual));
+			} else {
+				var t = interp.step(JParaInt(atual));		
+			}
+			
+			modificaValor(t);
+			regs.incrementaPc(4);
+		}	
 	}
 	
 
@@ -40,7 +43,7 @@ function UC() {
 			
 			var atual = memoria.getConteudo(regs.pc.valor);
 			var tipo = atual & -67108864;
-			tipo >>= 26;
+			tipo >>>= 26;
 			if(tipo == 0) {
 				t = interp.step(RParaInt(atual));
 				modificaValor(t);

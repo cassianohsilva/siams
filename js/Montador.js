@@ -94,7 +94,7 @@ case 3:
 							memoria.setConteudo(yylineno, -2147483648);
 							
 break;
-case 4:memoria.saveLabel($$[$0-2], regs.pc.valor);
+case 4:
 							this.$ = $$[$0];
 break;
 case 5:this.$ = $$[$0];
