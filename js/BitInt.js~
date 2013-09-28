@@ -54,7 +54,7 @@ function IParaInt(instrucao) {
 	if (temp2 != 0) {
 		temp3 = ~temp3;
 		temp3 = ((temp3) & 32767);
-		instrucaoDividida.address = -temp3;
+		instrucaoDividida.address = -temp3 - 1;
 	} else {
 		instrucaoDividida.address = temp3;
 	}

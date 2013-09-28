@@ -79,12 +79,16 @@ INST1			:		LABEL ':' INST
 
 				|		INST
 							{$$ = $1;}
-				
+							
+				|		LABEL ':' HALT
+							{
+							memoria.setConteudo(yylineno, -2147483648);
+							}
 				;
 
 INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							{var temp = instrucao.getOp($1);			//valor do op
-							var temp = temp << 26;
+							temp = temp << 26;
 							binario |= temp;
 							temp = regs.getNumero($4);					//valor do rs
 							temp = temp << 21;
@@ -99,16 +103,18 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							}
 				|		IC REGISTER ',' NUMBER '('REGISTER ')' 
 						   {var temp = instrucao.getOp($1);             //valor do op
-							var binario = 0;
-							binario = temp << 26;
+						   	var binario = 0;
+							temp = temp << 26;
 						    binario |= temp;
 							temp = regs.getNumero($6);             // valor do rs
 							temp = temp << 21;
 							binario |= temp;
 							temp = regs.getNumero($2);             //valor do rt
 							temp = temp << 16;
-							binario |= temp;           
-							binario |= $4;                              // valor do end.
+							binario |= temp;
+							temp = $4 & 65535;
+							temp = Math.floor($temp/4);
+							binario |= temp;                              // valor do end.
 							$$ = binario ;
 							memoria.setConteudo(yylineno, $$);
 							}
@@ -177,7 +183,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
        						}
        			
 				|
-				        IL REGISTER ',' REGISTER ',' NUMBER 
+				        IL REGISTER ',' REGISTER ',' LABEL
 						    {
 	                         var temp = instrucao.getOp($1);
                              var binario = 0;
@@ -188,8 +194,8 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
                              temp = regs.getNumero($4);
                              temp = temp << 16;
                              binario |= temp;
-                             temp = temp  >> 2;       // divide por quatro
-                             binario |= temp;							 
+                             temp = memoria.useLabel($6);
+                             binario |= temp;
                              $$ = binario;
                              memoria.setConteudo(yylineno, $$);	 
 							}
@@ -242,7 +248,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							binario |= $6;
 						    $$ = binario;
 						    memoria.setConteudo(yylineno, $$);
-						   }				
+						   }
 				;
 				
 NUMBER			:		NUMB

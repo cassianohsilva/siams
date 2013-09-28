@@ -71,7 +71,7 @@ function Registradores () {
 	},{
 		nome : "$s1",
 		numero : 17,
-		valor : 0
+		valor : 10
 	},{
 		nome : "$s2",
 		numero : 18,
@@ -161,7 +161,7 @@ function Registradores () {
 	}
 
 	this.incrementaPc = function (increase) {
-		this.pc.valor += Math.abs(increase/4);			
+		this.pc.valor += Math.floor(increase/4);			
 	}
 
 	this.setPc = function (value) {

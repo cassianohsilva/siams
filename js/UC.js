@@ -30,7 +30,9 @@ function UC() {
 			
 			modificaValor(t);
 			regs.incrementaPc(4);
-		}	
+		}
+		
+		imprimirMemoria();
 	}
 	
 

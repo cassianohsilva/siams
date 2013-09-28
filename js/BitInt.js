@@ -9,19 +9,19 @@ function RParaInt(instrucao) {
 	};
 		
 	var temp = instrucao & -67108864;
-	temp >>= 26;
+	temp >>>= 26;
 	this.instrucaoDividida.op = temp;	
 	temp = instrucao & 65011712;
-	temp >>= 21;
+	temp >>>= 21;
 	this.instrucaoDividida.rs = temp;
 	temp = instrucao & 2031616;
-	temp >>= 16;
+	temp >>>= 16;
 	this.instrucaoDividida.rt = temp;	
 	temp = instrucao & 63488;
-	temp >>= 11;
+	temp >>>= 11;
 	this.instrucaoDividida.rd = temp;
 	temp = instrucao & 1984;
-	temp >>= 6;
+	temp >>>= 6;
 	this.instrucaoDividida.shamt = temp;
 	temp = instrucao & 63;
 	this.instrucaoDividida.funct = temp;
@@ -39,13 +39,13 @@ function IParaInt(instrucao) {
 	};
 	
 	var temp = instrucao & -67108864;
-	temp >>= 26;
+	temp >>>= 26;
 	instrucaoDividida.op = temp;
 	temp = instrucao & 65011712;
-	temp >>= 21;
+	temp >>>= 21;
 	instrucaoDividida.rs = temp;
 	temp = instrucao & 2031616;
-	temp >>= 16;
+	temp >>>= 16;
 	instrucaoDividida.rt = temp;
 	temp = instrucao & 65535;
 	var temp2 = temp & 32768;
@@ -69,7 +69,7 @@ function JParaInt(instrucao) {
 	};
 	
 	var temp = instrucao & -67108864;
-	temp >>= 26;
+	temp >>>= 26;
 	instrucaoDividida.op = temp;
 	temp = instrucao & 67108863;
 	instrucaoDividida.address = temp;

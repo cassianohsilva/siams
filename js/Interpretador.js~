@@ -111,15 +111,17 @@ function Interpretador() {
 		op: 4,
 		funcao: function(r1, r2, num) {	
 	    	if(r1.valor == r2.valor)
-	        	regs.pc.valor = num;
-			}
+	        	regs.setPc(num-4);
+	        	return regs.pc;
+			}		
      },{
      	//bne
 		op: 5,          
         funcao: function(r1, r2, num){
         	if(r1.valor != r2.valor)
-				regs.pc.valor = num;
-		}
+				regs.setPc(num-4);
+				return regs.pc;
+		}		
 	},{
          //blez
 		op: 6,          
@@ -195,7 +197,7 @@ function Interpretador() {
      	//lb
         op: 32,
         funcao: function(r1, r2, num){
-        	var temp = memoria.getConteudo(r2.valor + Math.abs(num/4));
+        	var temp = memoria.getConteudo(r2.valor + Math.floor(num/4));
         	r1.valor = temp & 255;
         	return r1;
         }
@@ -203,7 +205,7 @@ function Interpretador() {
      	//lh
         op: 33,
         funcao: function(r1, r2, num){
-        	var temp = memoria.getConteudo(r2.valor + Math.abs(num/4));
+        	var temp = memoria.getConteudo(r2.valor + Math.floor(num/4));
         	r1.valor = temp & 65535;
         	return r1;
         }
@@ -211,7 +213,7 @@ function Interpretador() {
      	//lw
         op: 35,
         funcao: function(r1, r2, num){
-        	r1.valor = memoria.getConteudo(r2.valor + Math.abs(num/4));
+        	r1.valor = memoria.getConteudo(r2.valor + Math.floor(num/4));
         	return r1;
         }
      },{
@@ -219,7 +221,7 @@ function Interpretador() {
         op: 40,
         funcao: function(r1, r2, num){
         	var temp = r1.valor & 255;
-        	memoria.getConteudo(r2.valor + Math.abs(num/4), temp);
+        	memoria.getConteudo(r2.valor + Math.floor(num/4), temp);
         	return r1;
         }
      },{
@@ -227,14 +229,14 @@ function Interpretador() {
         op: 41,
         funcao: function(r1, r2, num){
         	var temp = r1.valor & 65535;
-        	memoria.getConteudo(r2.valor + Math.abs(num/4), temp);
+        	memoria.getConteudo(r2.valor + Math.floor(num/4), temp);
         	return r1;
         }
      },{
      	//sw
         op: 43,
         funcao: function(r1, r2, num){
-        	memoria.getConteudo(r2.valor + Math.abs(num/4), r1.valor);
+        	memoria.getConteudo(r2.valor + Math.floor(num/4), r1.valor);
         	return r1;
      	}
 	}];
@@ -243,7 +245,7 @@ function Interpretador() {
 	{
 		op: 2,											//j
 		funcao: function (jump) {
-			regs.pc.valor = jump >> 2;
+			regs.pc.valor = (jump-4) >> 2;
 			return regs.pc;
 		}
 	},{
@@ -251,7 +253,7 @@ function Interpretador() {
 		funcao: function (jump) {
 			regs.incrementaPc(4);
 			regs.lista[31].valor = regs.pc.valor;
-			regs.setPc(Math.abs(jump));
+			regs.setPc(Math.floor(jump));
 			return regs.pc;
 		}
 	}];

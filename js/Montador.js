@@ -76,7 +76,7 @@ var parser = {trace: function trace() { },
 yy: {},
 symbols_: {"error":2,"LINE":3,"INST1":4,"\\n":5,"EOF":6,"HALT":7,"LABEL":8,":":9,"INST":10,"IE":11,"REGISTER":12,",":13,"NUMBER":14,"IC":15,"(":16,")":17,"R":18,"JR":19,"J":20,"IL":21,"SR":22,"IU":23,"IJ":24,"NUMB":25,"-":26,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"\\n",6:"EOF",7:"HALT",8:"LABEL",9:":",11:"IE",12:"REGISTER",13:",",15:"IC",16:"(",17:")",18:"R",19:"JR",20:"J",21:"IL",22:"SR",23:"IU",24:"IJ",25:"NUMB",26:"-"},
-productions_: [0,[3,3],[3,2],[3,2],[4,3],[4,1],[10,6],[10,7],[10,6],[10,2],[10,2],[10,2],[10,6],[10,6],[10,4],[10,6],[14,1],[14,2]],
+productions_: [0,[3,3],[3,2],[3,2],[4,3],[4,1],[4,3],[10,6],[10,7],[10,6],[10,2],[10,2],[10,2],[10,6],[10,6],[10,4],[10,6],[14,1],[14,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -99,8 +99,12 @@ case 4:
 break;
 case 5:this.$ = $$[$0];
 break;
-case 6:var temp = instrucao.getOp($$[$0-5]);			//valor do op
-							var temp = temp << 26;
+case 6:
+							memoria.setConteudo(yylineno, -2147483648);
+							
+break;
+case 7:var temp = instrucao.getOp($$[$0-5]);			//valor do op
+							temp = temp << 26;
 							binario |= temp;
 							temp = regs.getNumero($$[$0-2]);					//valor do rs
 							temp = temp << 21;
@@ -114,22 +118,24 @@ case 6:var temp = instrucao.getOp($$[$0-5]);			//valor do op
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 7:var temp = instrucao.getOp($$[$0-6]);             //valor do op
-							var binario = 0;
-							binario = temp << 26;
+case 8:var temp = instrucao.getOp($$[$0-6]);             //valor do op
+						   	var binario = 0;
+							temp = temp << 26;
 						    binario |= temp;
 							temp = regs.getNumero($$[$0-1]);             // valor do rs
 							temp = temp << 21;
 							binario |= temp;
 							temp = regs.getNumero($$[$0-5]);             //valor do rt
 							temp = temp << 16;
-							binario |= temp;           
-							binario |= $$[$0-3];                              // valor do end.
+							binario |= temp;
+							temp = $$[$0-3] & 65535;
+							temp = Math.floor($temp/4);
+							binario |= temp;                              // valor do end.
 							this.$ = binario ;
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 8:var temp = instrucao.getOp($$[$0-5]);			//valor do op
+case 9:var temp = instrucao.getOp($$[$0-5]);			//valor do op
 							var binario = 0;
 							binario = temp << 26;
 							temp = regs.getNumero($$[$0-2]);					//valor do rs
@@ -149,7 +155,7 @@ case 8:var temp = instrucao.getOp($$[$0-5]);			//valor do op
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 9:
+case 10:
 							 var temp = instrucao.getOp($$[$0-1]);
 							 var binario = 0 ;
 							 binario= temp << 26;
@@ -170,7 +176,7 @@ case 9:
 							 memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 10:
+case 11:
 		                     var temp = instrucao.getOp($$[$0-1]);
                              var binario = 0;
                              binario = temp << 26;
@@ -179,7 +185,7 @@ case 10:
                              memoria.setConteudo(yylineno, this.$);
        						
 break;
-case 11:
+case 12:
        						 var temp = instrucao.getOp($$[$0-1]);
                              var binario = 0;
                              binario = temp << 26;
@@ -189,7 +195,7 @@ case 11:
                              memoria.setConteudo(yylineno, this.$);
        						
 break;
-case 12:
+case 13:
 	                         var temp = instrucao.getOp($$[$0-5]);
                              var binario = 0;
                              binario = temp << 26;
@@ -199,13 +205,13 @@ case 12:
                              temp = regs.getNumero($$[$0-2]);
                              temp = temp << 16;
                              binario |= temp;
-                             temp = temp  >> 2;       // divide por quatro
-                             binario |= temp;							 
+                             temp = memoria.useLabel($$[$0]);
+                             binario |= temp;
                              this.$ = binario;
                              memoria.setConteudo(yylineno, this.$);	 
 							
 break;
-case 13:
+case 14:
 							var temp = instrucao.getOp($$[$0-5]);
 							var binario =0;
 							binaro = temp << 26;
@@ -225,7 +231,7 @@ case 13:
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 14:
+case 15:
 							 var temp = instrucao.getOp($$[$0-3]);
 							 var binario  = 0;
 							 binario = temp << 26;
@@ -240,7 +246,7 @@ case 14:
 							 memoria.setConteudo(yylineno, this.$);
 							 
 break;
-case 15:var temp = instrucao.getOp($$[$0-5]);
+case 16:var temp = instrucao.getOp($$[$0-5]);
 						    var binario = 0;
 							binario = temp << 26;
 							temp = regs.getNumero($$[$0-2]);
@@ -254,17 +260,17 @@ case 15:var temp = instrucao.getOp($$[$0-5]);
 						    memoria.setConteudo(yylineno, this.$);
 						   
 break;
-case 16:
+case 17:
 							this.$ = $$[$0];
 							
 break;
-case 17:
+case 18:
 							this.$ = -$$[$0];
 							
 break;
 }
 },
-table: [{3:1,4:2,7:[1,3],8:[1,4],10:5,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{1:[3]},{5:[1,15],6:[1,16]},{6:[1,17]},{9:[1,18]},{5:[2,5],6:[2,5]},{12:[1,19]},{12:[1,20]},{12:[1,21]},{12:[1,22]},{8:[1,24],14:23,25:[1,25],26:[1,26]},{12:[1,27]},{12:[1,28]},{12:[1,29]},{12:[1,30]},{3:31,4:2,7:[1,3],8:[1,4],10:5,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{1:[2,2]},{1:[2,3]},{10:32,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{13:[1,33]},{13:[1,34]},{13:[1,35]},{5:[2,9],6:[2,9]},{5:[2,10],6:[2,10]},{5:[2,11],6:[2,11]},{5:[2,16],6:[2,16],16:[2,16]},{25:[1,36]},{13:[1,37]},{13:[1,38]},{13:[1,39]},{13:[1,40]},{1:[2,1]},{5:[2,4],6:[2,4]},{12:[1,41]},{14:42,25:[1,25],26:[1,26]},{12:[1,43]},{5:[2,17],6:[2,17],16:[2,17]},{12:[1,44]},{12:[1,45]},{14:46,25:[1,25],26:[1,26]},{12:[1,47]},{13:[1,48]},{16:[1,49]},{13:[1,50]},{13:[1,51]},{13:[1,52]},{5:[2,14],6:[2,14]},{13:[1,53]},{14:54,25:[1,25],26:[1,26]},{12:[1,55]},{12:[1,56]},{14:57,25:[1,25],26:[1,26]},{14:58,25:[1,25],26:[1,26]},{14:59,25:[1,25],26:[1,26]},{5:[2,6],6:[2,6]},{17:[1,60]},{5:[2,8],6:[2,8]},{5:[2,12],6:[2,12]},{5:[2,13],6:[2,13]},{5:[2,15],6:[2,15]},{5:[2,7],6:[2,7]}],
+table: [{3:1,4:2,7:[1,3],8:[1,4],10:5,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{1:[3]},{5:[1,15],6:[1,16]},{6:[1,17]},{9:[1,18]},{5:[2,5],6:[2,5]},{12:[1,19]},{12:[1,20]},{12:[1,21]},{12:[1,22]},{8:[1,24],14:23,25:[1,25],26:[1,26]},{12:[1,27]},{12:[1,28]},{12:[1,29]},{12:[1,30]},{3:31,4:2,7:[1,3],8:[1,4],10:5,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{1:[2,2]},{1:[2,3]},{7:[1,33],10:32,11:[1,6],15:[1,7],18:[1,8],19:[1,9],20:[1,10],21:[1,11],22:[1,12],23:[1,13],24:[1,14]},{13:[1,34]},{13:[1,35]},{13:[1,36]},{5:[2,10],6:[2,10]},{5:[2,11],6:[2,11]},{5:[2,12],6:[2,12]},{5:[2,17],6:[2,17],16:[2,17]},{25:[1,37]},{13:[1,38]},{13:[1,39]},{13:[1,40]},{13:[1,41]},{1:[2,1]},{5:[2,4],6:[2,4]},{5:[2,6],6:[2,6]},{12:[1,42]},{14:43,25:[1,25],26:[1,26]},{12:[1,44]},{5:[2,18],6:[2,18],16:[2,18]},{12:[1,45]},{12:[1,46]},{14:47,25:[1,25],26:[1,26]},{12:[1,48]},{13:[1,49]},{16:[1,50]},{13:[1,51]},{13:[1,52]},{13:[1,53]},{5:[2,15],6:[2,15]},{13:[1,54]},{14:55,25:[1,25],26:[1,26]},{12:[1,56]},{12:[1,57]},{8:[1,58]},{14:59,25:[1,25],26:[1,26]},{14:60,25:[1,25],26:[1,26]},{5:[2,7],6:[2,7]},{17:[1,61]},{5:[2,9],6:[2,9]},{5:[2,13],6:[2,13]},{5:[2,14],6:[2,14]},{5:[2,16],6:[2,16]},{5:[2,8],6:[2,8]}],
 defaultActions: {16:[2,2],17:[2,3],31:[2,1]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
