@@ -69,7 +69,7 @@ LINE			:		INST1 '\n' LINE
 							 
 				|		HALT EOF
 							{
-							memoria.setConteudo(yylineno, -2147483648);
+							memoria.setConteudo(yylineno, (-2147483648>>>0));
 							}
 				;
 				
@@ -82,7 +82,7 @@ INST1			:		LABEL ':' INST
 							
 				|		LABEL ':' HALT
 							{
-							memoria.setConteudo(yylineno, -2147483648);
+							memoria.setConteudo(yylineno, (-2147483648>>>0));
 							}
 				;
 
@@ -98,6 +98,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							binario |= temp;
 							temp = $6 & 65535;
 							binario |= temp;
+							binario = (binario>>>0);
 							$$ = binario;
 							memoria.setConteudo(yylineno, $$);
 							}
@@ -115,6 +116,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							temp = $4 & 65535;
 							temp = Math.floor(temp/4);
 							binario |= temp;                              // valor do end.
+							binario = (binario>>>0);
 							$$ = binario ;
 							memoria.setConteudo(yylineno, $$);
 							}
@@ -196,6 +198,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
                              binario |= temp;
                              temp = memoria.useLabel($6);
                              binario |= temp;
+                             binario = (binario>>>0);
                              $$ = binario;
                              memoria.setConteudo(yylineno, $$);	 
 							}
@@ -232,6 +235,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							 temp = temp << 16;
 							 binario |= temp;
 							 binario |= $4;
+							 binario = (binario>>>0);
 							 $$ = binario;
 							 memoria.setConteudo(yylineno, $$);
 							 }
@@ -246,6 +250,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							temp = temp << 16;
 							binario |= temp;
 							binario |= $6;
+							binario = (binario>>>0);
 						    $$ = binario;
 						    memoria.setConteudo(yylineno, $$);
 						   }

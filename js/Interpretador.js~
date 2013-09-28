@@ -221,7 +221,7 @@ function Interpretador() {
         op: 40,
         funcao: function(r1, r2, num){
         	var temp = r1.valor & 255;
-        	memoria.getConteudo(r2.valor + Math.floor(num/4), temp);
+        	memoria.setConteudo(r2.valor + Math.floor(num/4), temp);
         	return r1;
         }
      },{
@@ -229,14 +229,14 @@ function Interpretador() {
         op: 41,
         funcao: function(r1, r2, num){
         	var temp = r1.valor & 65535;
-        	memoria.getConteudo(r2.valor + Math.floor(num/4), temp);
+        	memoria.setConteudo(r2.valor + Math.floor(num/4), temp);
         	return r1;
         }
      },{
      	//sw
         op: 43,
         funcao: function(r1, r2, num){
-        	memoria.getConteudo(r2.valor + Math.floor(num/4), r1.valor);
+        	memoria.setConteudo(r2.valor + Math.floor(num/4), r1.valor);
         	return r1;
      	}
 	}];

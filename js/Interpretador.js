@@ -252,7 +252,7 @@ function Interpretador() {
 		op: 3,											//jal
 		funcao: function (jump) {
 			regs.incrementaPc(4);
-			regs.lista[31].valor = regs.pc.valor;
+			regs.setValor('$ra', regs.pc.valor);
 			regs.setPc(Math.floor(jump));
 			return regs.pc;
 		}

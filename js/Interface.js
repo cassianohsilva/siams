@@ -98,7 +98,7 @@ function imprimirMemoria() {
 	
 	while (memoria.getConteudo(j) != (null && 'undefined')) {
 		
-		$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" +  memoria.getConteudo(j) +"</td></tr>");
+		$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" + memoria.getConteudo(j) +"</td></tr>");
 		j++;
 	}
 	for(var i = 0; i < regs.lista.length; i++) {

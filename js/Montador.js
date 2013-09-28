@@ -91,7 +91,7 @@ case 2:
 							 return true;
 break;
 case 3:
-							memoria.setConteudo(yylineno, -2147483648);
+							memoria.setConteudo(yylineno, (-2147483648>>>0));
 							
 break;
 case 4:
@@ -100,7 +100,7 @@ break;
 case 5:this.$ = $$[$0];
 break;
 case 6:
-							memoria.setConteudo(yylineno, -2147483648);
+							memoria.setConteudo(yylineno, (-2147483648>>>0));
 							
 break;
 case 7:var temp = instrucao.getOp($$[$0-5]);			//valor do op
@@ -114,6 +114,7 @@ case 7:var temp = instrucao.getOp($$[$0-5]);			//valor do op
 							binario |= temp;
 							temp = $$[$0] & 65535;
 							binario |= temp;
+							binario = (binario>>>0);
 							this.$ = binario;
 							memoria.setConteudo(yylineno, this.$);
 							
@@ -131,6 +132,7 @@ case 8:var temp = instrucao.getOp($$[$0-6]);             //valor do op
 							temp = $$[$0-3] & 65535;
 							temp = Math.floor(temp/4);
 							binario |= temp;                              // valor do end.
+							binario = (binario>>>0);
 							this.$ = binario ;
 							memoria.setConteudo(yylineno, this.$);
 							
@@ -207,6 +209,7 @@ case 13:
                              binario |= temp;
                              temp = memoria.useLabel($$[$0]);
                              binario |= temp;
+                             binario = (binario>>>0);
                              this.$ = binario;
                              memoria.setConteudo(yylineno, this.$);	 
 							
@@ -242,6 +245,7 @@ case 15:
 							 temp = temp << 16;
 							 binario |= temp;
 							 binario |= $$[$0];
+							 binario = (binario>>>0);
 							 this.$ = binario;
 							 memoria.setConteudo(yylineno, this.$);
 							 
@@ -256,6 +260,7 @@ case 16:var temp = instrucao.getOp($$[$0-5]);
 							temp = temp << 16;
 							binario |= temp;
 							binario |= $$[$0];
+							binario = (binario>>>0);
 						    this.$ = binario;
 						    memoria.setConteudo(yylineno, this.$);
 						   

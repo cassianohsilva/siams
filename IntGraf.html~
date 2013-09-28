@@ -27,6 +27,7 @@
 		var regs = new Registradores();
 		var memoria = new Memoria();
 		var instrucao = new Instrucao();
+		alert((-2147483648)>>>0);
 	</script>
 	<script type="text/javascript" src="js/Montador.js"></script>
 	<script type="text/javascript" src="js/UC.js"></script>
