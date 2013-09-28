@@ -113,7 +113,7 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							temp = temp << 16;
 							binario |= temp;
 							temp = $4 & 65535;
-							temp = Math.floor($temp/4);
+							temp = Math.floor(temp/4);
 							binario |= temp;                              // valor do end.
 							$$ = binario ;
 							memoria.setConteudo(yylineno, $$);

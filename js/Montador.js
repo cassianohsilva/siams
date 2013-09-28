@@ -129,7 +129,7 @@ case 8:var temp = instrucao.getOp($$[$0-6]);             //valor do op
 							temp = temp << 16;
 							binario |= temp;
 							temp = $$[$0-3] & 65535;
-							temp = Math.floor($temp/4);
+							temp = Math.floor(temp/4);
 							binario |= temp;                              // valor do end.
 							this.$ = binario ;
 							memoria.setConteudo(yylineno, this.$);
