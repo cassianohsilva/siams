@@ -52,7 +52,8 @@ function Interpretador() {
 	},{
 		funct: 33,                              // addu
 		funcao: function(r1, r2, r3) {
-			Math.abs(r1.valor) = Math.abs(r2.valor) + Math.abs(r3.valor);
+			r1.valor = (r2.valor>>>0) + (r3.valor>>>0);
+			r1.valor = (r1.valor>>>0);
 			return r1;
 		}
 	},{
@@ -64,7 +65,8 @@ function Interpretador() {
 	},{
 		funct: 35,
 		funcao: function(r1, r2, r3) {                   // subu
-			Math.abs(r1.valor) = Math.abs(r2.valor) - Math.abs(r3.valor);
+			r1.valor = (r2.valor>>>0) - (r3.valor>>>0);
+			r1.valor = (r1.valor>>>0);
 			return r1;
 		}
 	},{
@@ -101,7 +103,7 @@ function Interpretador() {
 	},{
 		funct: 43,
 		funcao: function(r1, r2, r3) {                          // sltu
-			Math.abs(r2.valor) < Math.abs(r3.valor)? r1.valor = 1 : r1.valor = 0;
+			(r2.valor>>>0) < (r3.valor>>>0)? r1.valor = 1 : r1.valor = 0;
 			return r1;
 		}
 	}];
@@ -149,7 +151,15 @@ function Interpretador() {
            r1.valor = r2.valor + num;
            return r1;
 		}
-     },{
+    },{
+           //addiu
+		op: 9,
+		funcao: function(r1 , r2, num){
+           r1.valor = (r2.valor>>>0) + (num>>>0);
+           r1.valor = (r1.valor>>>0);
+           return r1;
+		}
+    },{
 
           //stli
 		op: 10,          

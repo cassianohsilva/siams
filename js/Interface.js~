@@ -98,7 +98,7 @@ function imprimirMemoria() {
 	
 	while (memoria.getConteudo(j) != (null && 'undefined')) {
 		
-		$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" + memoria.getConteudo(j)>>>0 +"</td></tr>");
+		$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" "0x" + memoria.getConteudo(j).toString(16).toUpperCase() +"</td></tr>");
 		j++;
 	}
 	for(var i = 0; i < regs.lista.length; i++) {
@@ -106,7 +106,7 @@ function imprimirMemoria() {
 		var tempvalor = regs.lista[i].valor;
 		
 		if (memoria.getConteudo(tempvalor) != (null && 'undefined') && tempvalor > j) {
-			$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ tempvalor +"</td><td>" + memoria.getConteudo(tempvalor)>>>0 +"</td></tr>");
+			$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ tempvalor +"</td><td>" + memoria.getConteudo(tempvalor) +"</td></tr>");
 		}
 	}
 }
