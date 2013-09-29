@@ -125,7 +125,7 @@
 	color: #333;
 }
 
-#instrucoes h4, #atahos h4, .badge {
+#tabelaIntrucoes tr td .badge, #atalhos tr td .badge {
 	font-size: 20px;
 	padding: 3px;
 	display: inline;

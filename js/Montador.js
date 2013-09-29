@@ -103,13 +103,13 @@ case 6:
 							memoria.setConteudo(yylineno, (-2147483648>>>0));
 							
 break;
-case 7:var temp = instrucao.getOp($$[$0-5]);			//valor do op
+case 7:var temp = instrucao.getOp($$[$0-5]);			//IE
 							temp = temp << 26;
 							binario |= temp;
-							temp = regs.getNumero($$[$0-2]);					//valor do rs
+							temp = regs.getNumero($$[$0-2]);					
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($$[$0-4]);					//valor do rs
+							temp = regs.getNumero($$[$0-4]);					
 							temp = temp << 16;
 							binario |= temp;
 							temp = $$[$0] & 65535;
@@ -119,45 +119,45 @@ case 7:var temp = instrucao.getOp($$[$0-5]);			//valor do op
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 8:var temp = instrucao.getOp($$[$0-6]);             //valor do op
+case 8:var temp = instrucao.getOp($$[$0-6]);             //IC
 						   	var binario = 0;
 							temp = temp << 26;
 						    binario |= temp;
-							temp = regs.getNumero($$[$0-1]);             // valor do rs
+							temp = regs.getNumero($$[$0-1]);
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($$[$0-5]);             //valor do rt
+							temp = regs.getNumero($$[$0-5]);             
 							temp = temp << 16;
 							binario |= temp;
 							temp = $$[$0-3] & 65535;
 							temp = Math.floor(temp/4);
-							binario |= temp;                              // valor do end.
+							binario |= temp;                              
 							binario = (binario>>>0);
 							this.$ = binario ;
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 9:var temp = instrucao.getOp($$[$0-5]);			//valor do op
+case 9:var temp = instrucao.getOp($$[$0-5]);			//R
 							var binario = 0;
 							binario = temp << 26;
-							temp = regs.getNumero($$[$0-2]);					//valor do rs
+							temp = regs.getNumero($$[$0-2]);					
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($$[$0]);					//valor do rt
+							temp = regs.getNumero($$[$0]);					
 							temp = temp << 16;
 							binario |= temp;
-							temp = regs.getNumero($$[$0-4]);					//valor do rd
+							temp = regs.getNumero($$[$0-4]);					
 							temp = temp << 11;
 							binario |= temp;
-							temp = 0;									//valor do shamt
+							temp = 0;									
 							temp = temp << 6;
 							binario |= temp;
-							binario |= instrucao.getFunct($$[$0-5]);			//valor do funct
+							binario |= instrucao.getFunct($$[$0-5]);			
 							this.$ = binario;
 							memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 10:
+case 10:											//JR
 							 var temp = instrucao.getOp($$[$0-1]);
 							 var binario = 0 ;
 							 binario= temp << 26;
@@ -178,7 +178,7 @@ case 10:
 							 memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 11:
+case 11:											//JR
 							 var temp = instrucao.getOp($$[$0-1]);
 							 var binario = 0 ;
 							 binario= temp << 26;
@@ -199,8 +199,8 @@ case 11:
 							 memoria.setConteudo(yylineno, this.$);
 							
 break;
-case 12:
-		                     var temp = instrucao.getOp($$[$0-1]);
+case 12:											
+		                     var temp = instrucao.getOp($$[$0-1]);			//J
                              var binario = 0;
                              binario = temp << 26;
 							 binario |= $$[$0];
@@ -208,8 +208,8 @@ case 12:
                              memoria.setConteudo(yylineno, this.$);
        						
 break;
-case 13:
-       						 var temp = instrucao.getOp($$[$0-1]);
+case 13:											
+       						 var temp = instrucao.getOp($$[$0-1]);			//J
                              var binario = 0;
                              binario = temp << 26;
                              temp = memoria.useLabel($$[$0]);
@@ -219,7 +219,7 @@ case 13:
        						
 break;
 case 14:
-	                         var temp = instrucao.getOp($$[$0-5]);
+	                         var temp = instrucao.getOp($$[$0-5]);			//IL
                              var binario = 0;
                              binario = temp << 26;
                              temp = regs.getNumero($$[$0-4]);
@@ -228,7 +228,7 @@ case 14:
                              temp = regs.getNumero($$[$0-2]);
                              temp = temp << 16;
                              binario |= temp;
-                             temp = memoria.useLabel($$[$0]);
+                             temp = (memoria.useLabel($$[$0]) - yylineno)/4;
                              binario |= temp;
                              binario = (binario>>>0);
                              this.$ = binario;
@@ -236,7 +236,7 @@ case 14:
 							
 break;
 case 15:
-							var temp = instrucao.getOp($$[$0-5]);
+							var temp = instrucao.getOp($$[$0-5]);				//SR
 							var binario =0;
 							binaro = temp << 26;
 							temp = 0;
@@ -256,7 +256,7 @@ case 15:
 							
 break;
 case 16:
-							 var temp = instrucao.getOp($$[$0-3]);
+							 var temp = instrucao.getOp($$[$0-3]);			//IU
 							 var binario  = 0;
 							 binario = temp << 26;
 							 temp = 0;
@@ -271,7 +271,7 @@ case 16:
 							 memoria.setConteudo(yylineno, this.$);
 							 
 break;
-case 17:var temp = instrucao.getOp($$[$0-5]);
+case 17:var temp = instrucao.getOp($$[$0-5]);				//IJ
 						    var binario = 0;
 							binario = temp << 26;
 							temp = regs.getNumero($$[$0-2]);

@@ -1,6 +1,6 @@
 function UC() {
 	
-	this.compilar = function() {
+	this.montar = function() {
 		var codigo = document.getElementById("codigo").value;
 		
 		$('#memoria ').removeClass('success');
@@ -17,7 +17,7 @@ function UC() {
 		var interp = new Interpretador();
 		
 		var atual = memoria.getConteudo(regs.pc.valor);
-		if (atual != -2147483648) {
+		if (atual != 2147483648) {
 			var tipo = atual & -67108864;
 			tipo >>>= 26;
 			if(tipo == 0) {
@@ -38,8 +38,9 @@ function UC() {
 
 	this.executar = function() {
 		
-		var t = 0;
-		while(memoria.getConteudo(regs.pc.valor) != -2147483648) {
+		var t = 0, j = 0;
+		var breakpoint = $('#x'+j+' td input').is(':checked');
+		while(memoria.getConteudo(regs.pc.valor) != 2147483648 && !breakpoint) {
 			
 			$('#'+t.numero).removeClass('success');
 			
@@ -57,13 +58,10 @@ function UC() {
 				modificaValor(t);		
 			}
 		
-		regs.incrementaPc(4);	
+			regs.incrementaPc(4);
+			j++;
+			breakpoint = $('#x'+j+' td input').is(':checked');
 		}
 		regs.setPc(0);
-		
-	}
-
-	function codificar() {
-		
 	}
 }

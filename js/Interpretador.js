@@ -113,15 +113,15 @@ function Interpretador() {
 		op: 4,
 		funcao: function(r1, r2, num) {	
 	    	if(r1.valor == r2.valor)
-	        	regs.setPc(num-4);
-	        	return regs.pc;
+	        	regs.incrementaPc((num-1)*4);
+	        	return regs.pc
 			}		
      },{
      	//bne
 		op: 5,          
         funcao: function(r1, r2, num){
         	if(r1.valor != r2.valor)
-				regs.setPc(num-4);
+				regs.incrementaPc((num-1)*4);
 				return regs.pc;
 		}		
 	},{
@@ -146,7 +146,7 @@ function Interpretador() {
         }    
 	},{
            //addi
-		op: 8,          
+		op: 8,       
 		funcao: function(r1 , r2, num){
            r1.valor = r2.valor + num;
            return r1;
@@ -269,6 +269,11 @@ function Interpretador() {
 	}];
 	
 	this.step = function(instr) {
+		
+		if (instr.rd == 0 || (instr.rd == 'undefined' && instr.rs == 0)) {
+			console.log("$zero have a static value");
+			return null;
+		}
 	    	
 		if(instr.op == 0) {
 			if (instr.funct != (0 || 2)) {

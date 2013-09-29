@@ -3,7 +3,7 @@ function Registradores () {
 	this.lista = [{
 		nome : "$zero",
 		numero : 0,
-		valor : 0
+		valor : var a = 0
 	},{
 		nome : "$at",
 		numero : 1,
@@ -161,7 +161,7 @@ function Registradores () {
 	}
 
 	this.incrementaPc = function (increase) {
-		this.pc.valor += Math.floor(increase/4);			
+		this.pc.valor += Math.floor(increase/4);		
 	}
 
 	this.setPc = function (value) {

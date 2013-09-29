@@ -27,7 +27,6 @@
 		var regs = new Registradores();
 		var memoria = new Memoria();
 		var instrucao = new Instrucao();
-		alert((-2147483648)>>>0);
 	</script>
 	<script type="text/javascript" src="js/Montador.js"></script>
 	<script type="text/javascript" src="js/UC.js"></script>
@@ -68,8 +67,8 @@
 							<li><a href="#"><i class="icon-file"></i><br/>Novo</a></li>
 							<li><a href="#"><i class="icon-folder-open"></i><br/>Abrir</a></li>
 							<li><a href="#"><i class="icon-download"></i><br/>Salvar</a></li>
-							<li><a id="a" href="javascript:uc.compilar();"><i class="icon-check"></i><br/>Montar</a></li>
-							<li><a href="javascript:uc.compilar(); uc.executar();"><i class="icon-play"></i><br/>Executar</a></li>
+							<li><a id="a" href="javascript:uc.montar();"><i class="icon-check"></i><br/>Montar</a></li>
+							<li><a href="javascript:uc.montar(); uc.executar();"><i class="icon-play"></i><br/>Executar</a></li>
 							<li><a href="javascript:uc.step();"><i class="icon-step-forward"></i><br/>Step</a></li>
 						</ul>
 						</div>
@@ -142,149 +141,171 @@
 				<span class="badge badge-info">Ctrl+F10</span>
 				<h4>Executar um arquivo<br/></h4>
 				
-				<span class="badge badge-info">Ctrl+Direita</span>
-				<h4>Executar um arquivo passo a passo<br/></h4>
+				<span class="badge badge-info">Ctrl+F11</span>
+				<h4>Step<br/></h4>
 			</div>
 		</div>
 	</div>
 	<div id="instrucoes" class="row-fluid">
 		<div id="tituloInstrucoes" class="span12"><h1>Instruções</h1></div>
 		<div class="span12">
-		<table id="tabelaInstrucoes" class="table table-bordered">
+		<table id="tabelaInstrucoes" class="table">
 		<tr>
 			<td>﻿<span class="badge badge-info">add</span></td>
 			<td><h4>add $s1,$s2,$s3</h4></td>
 			<td><h4>Soma o valor de $s1 ao $s2 e armazena no $s0<br/></h4></td>
 		</tr>
 
-<span class="badge badge-info">addu</span>
-<h4>addu $s1,$s2,$s3</h4>
-<h4>Soma o valor de $s1 ao $s2 e armazena no $s0 sem levar em conta o sinal<br/>
+		<tr>
+			<td><span class="badge badge-info">xor</span></td>
+			<td><h4>xor $s0,$s1,$s2</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e $s2 são 1 e 0 ou 0 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">sub</span></td>
+			<td><h4>sub $s0,$s1,$s2</h4></td>
+			<td><h4>Substrai o valor de $s1 ao $s2 e armazena no $s0<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">and</span></td>
+			<td><h4>and $s0,$s1,$s2</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e $s2 são 1 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">or</span></td>
+			<td><h4>or $s0,$s1,$s2</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e $s2 se tem 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">nor</span></td>
+			<td><h4>nor $s0,$s1,$s2</h4></td>
+			<td><h4>Primeiro ela faz OR e depois ela nega e armazena em $s0<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">slt</span></td>
+			<td><h4>slt $s0,$s1,$s2</h4></td>
+			<td><h4>Verifica se $s1 é menor que $s2 então armazena 1 em $s0 senão armazena 0<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">sll</span></td>
+			<td><h4>sll $s0,$s1,10</h4></td>			
+			<td><h4>Desloca todos os bits de $s1 n posições para a direita e armazena em $s0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">xor</span>
-<h4>xor $s0,$s1,$s2</h4>
-<h4>Verifica bit a bit se $s1 e $s2 são 1 e 0 ou 0 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">srl</span></td>
+			<td><h4>sr $s0,$s1,10</h4></td>
+			<td><h4>Desloca todos os bits de $s1 n posições para a esquerda e armazena em $s0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">sub</span>
-<h4>sub $s0,$s1,$s2</h4>
-<h4>Substrai o valor de $s1 ao $s2 e armazena no $s0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">j</span></td>
+			<td><h4>j label</h4></td>
+			<td><h4>Vai para o endereço armazenado no label<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">subu</span>
-<h4>subu $s0,$s1,$s2</h4>
-<h4>Substrai o valor de $s1 ao $s2 e armazena no $s0 sem utilizar sinal<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">jr</span></td>
+			<td><h4>jr $ra</h4></td>
+			<td><h4>Usado em situações de switch<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">and</span>
-<h4>and $s0,$s1,$s2</h4>
-<h4>Verifica bit a bit se $s1 e $s2 são 1 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">jal</span></td>
+			<td><h4>jal</h4></td>
+			<td><h4>Usado em procedimentos<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">or</span>
-<h4>or $s0,$s1,$s2</h4>
-<h4>Verifica bit a bit se $s1 e $s2 se tem 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">beq</span></td>
+			<td><h4>beq $s0,$s1,LABEL</h4></td>
+			<td><h4>Vai para o endereço armazenado no label se $s0 for igual a $s1<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">nor</span>
-<h4>nor $s0,ma$s1,$s2</h4>
-<h4>Primeiro ela faz OR e depois ela nega e armazena em $s0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">bne</span></td>
+			<td><h4>bne $s0,$s1,LABEL</h4></td>
+			<td><h4>Vai para o endereço armazenado no label se $s0 for diferente de $s1<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">slt</span>
-<h4>slt $s0,$s1,$s2</h4>
-<h4>Verifica se $s1 é menor que $s2 então armazena 1 em $s0 senão armazena 0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">addi</span></td>
+			<td><h4>addi $s0,$s1,100</h4></td>
+			<td><h4>Adiciona o valor de $s1 a constante e armazena no $s0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">sltu</span>
-<h4>sltu $s0,$s1,$s2</h4>
-<h4>Verifica se $s1 é menor que $s2 então armazena 1 $s0 senão armazena 0 sem levar em conta o sinal<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">slti</span></td>
+			<td><h4>slti $s0,$s1,50</h4></td>
+			<td><h4>Verifica se $s1 é menor que a constante então armazena 1 em $s0 senão armazena 0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">sll</span>
-<h4>sll $s0,$s1,10</h4>
-<h4>Desloca todos os bits de $s1 n posições para a direita e armazena em $s0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">xori</span></td>
+			<td><h4>xori $s0,$s1,4</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e a costante são 1 e 0 ou 0 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">srl</span>
-<h4>slr $s0,$s1,10</h4>
-<h4>Desloca todos os bits de $s1 n posições para a esquerda e armazena em $s0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">andi</span></td>
+			<td><h4>and $s0,$s1,25</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e a constante são 1 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">j</span>
-<h4>j label</h4>
-<h4>Vai para o endereço armazenado no label<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">ori</span></td>
+			<td><h4>ori $s0,$s1,25</h4></td>
+			<td><h4>Verifica bit a bit se $s1 e $a constante se tem 1 então armazena 1 no $s0 se não armazena 0<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">jr</span>
-<h4>jr $ra</h4>
-<h4>Usado em situações de switch<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">lw</span></td>
+			<td><h4>lw $s1, 0($s2)</h4></td>
+			<td><h4>Pega o endereço base em $s2, soma 0 unidades e armazena o valor dessa posiçao da memória em $s1<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">jal</span>
-<h4>jal</h4>
-<h4>Usado em procedimentos<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">sw</span></td>
+			<td><h4>sw $s1, 0($s2)</h4></td>
+			<td><h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor de $s1 nessa posição da memória<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">beq</span>
-<h4>beq $s0,$s1,LABEL</h4>
-<h4>Vai para o endereço armazenado no label se $s0 for igual a $s1<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">sb</span></td>
+			<td><h4>sb $s1, 0($s2)</h4></td>
+			<td><h4>Pega o endereço base em $s2, soma 0 unidades e armazena byte por byte o valor dessa posiçao da memória em $s1<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">bne</span>
-<h4>bne $s0,$s1,LABEL</h4>
-<h4>Vai para o endereço armazenado no label se $s0 for diferente de $s1<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">lb</span></td>
+			<td><h4>lb $s1, 0($s2)</h4></td>
+			<td><h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor byte por byte de $s1 nessa posição da memória<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">addi</span>
-<h4>addi $s0,$s1,100</h4>
-<h4>Adiciona o valor de $s1 a constante e armazena no $s0<br/></h4>
+		<tr>
+			<td><span class="badge badge-info">sh</span></td>
+			<td><h4>sh $s1, 0($s2)</h4></td>
+			<td><h4>Pega o endereço base em $s2, soma 0 unidades e armazena o valor de metade da palavra dessa posiçao da memória em $s1<br/></h4></td>
+		</tr>
 
-<span class="badge badge-info">addiu</span>
-<h4>addiu $s0,$s1,100</h4>
-<h4>Adiciona o valor de $s1 a constante e armazena no $s0 sem levar em conta o sinal<br/></h4>
-
-<span class="badge badge-info">slti</span>
-<h4>slti $s0,$s1,50</h4>
-<h4>Verifica se $s1 é menor que a constante então armazena 1 em $s0 senão armazena 0<br/></h4>
-
-<span class="badge badge-info">xori</span>
-<h4>xori $s0,$s1,4</h4>
-<h4>Verifica bit a bit se $s1 e a costante são 1 e 0 ou 0 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
-
-<span class="badge badge-info">sltiu</span>
-<h4>sltiu $s0,$s1,25</h4>
-<h4>Verifica se $s1 é menor que a constante então armazena 1 $s0 senão armazena 0 sem levar em conta o sinal<br/></h4>
-
-<span class="badge badge-info">andi</span>
-<h4>and $s0,$s1,25</h4>
-<h4>Verifica bit a bit se $s1 e a constante são 1 e 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
-
-<span class="badge badge-info">ori</span>
-<h4>ori $s0,$s1,25</h4>
-<h4>Verifica bit a bit se $s1 e $a constante se tem 1 então armazena 1 no $s0 se não armazena 0<br/></h4>
-
-<span class="badge badge-info">lw</span>
-<h4>lw $s1, 0($s2)</h4>
-<h4>Pega o endereço base em $s2, soma 0 unidades e armazena o valor dessa posiçao da memória em $s1<br/></h4>
-
-<span class="badge badge-info">sw</span>
-<h4>sw $s1, 0($s2)</h4>
-<h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor de $s1 nessa posição da memória<br/></h4>
-
-<span class="badge badge-info">sb</span>
-<h4>sb $s1, 0($s2)</h4>
-<h4>Pega o endereço base em $s2, soma 0 unidades e armazena byte por byte o valor dessa posiçao da memória em $s1<br/></h4>
-
-<span class="badge badge-info">lb</span>
-<h4>lb $s1, 0($s2)</h4>
-<h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor byte por byte de $s1 nessa posição da memória<br/></h4>
-
-<span class="badge badge-info">sh</span>
-<h4>sh $s1, 0($s2)</h4>
-<h4>Pega o endereço base em $s2, soma 0 unidades e armazena o valor de metade da palavra dessa posiçao da memória em $s1<br/></h4>
-
-<span class="badge badge-info">lh</span>
-<h4>lh $s1, 0($s2)</h4>
-<h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor de metade da palavra de $s1 nessa posição da memória<br/></h4>
-
-<span class="badge badge-info">lbu</span>
-<h4>lbu $s1, 0($s2)</h4>
-<h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor byte por byte de $s1 nessa posição da memória sem levar em consideração o sinal<br/></h4>
-
-<span class="badge badge-info">lhu</span>
-<h4>lhu $s1, 0($s2)</h4>
-<h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor de metade da palavra de $s1 nessa posição da memória sem levar em consideração o sinal<br/></h4>
-
-<span class="badge badge-info">lui</span>
-<h4>lui $s0,61</h4>
-<h4>Armazena os 16 bits mais significativos e adiciona em $s0<br/></h4>
-			</table>
+		<tr>
+			<td><span class="badge badge-info">lh</span></td>
+			<td><h4>lh $s1, 0($s2)</h4></td>
+			<td><h4>Vai no endereço base em $s2, soma 0 byte e armazena o valor de metade da palavra de $s1 nessa posição da memória<br/></h4></td>
+		</tr>
+		
+		<tr>
+			<td><span class="badge badge-info">lui</span></td>
+			<td><h4>lui $s0,61</h4></td>
+			<td><h4>Armazena os 16 bits mais significativos e adiciona em $s0<br/></h4></td>
+		</tr>
+		
+		</table>
 		</div>
 	</div>
 </div>

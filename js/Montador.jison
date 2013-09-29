@@ -86,14 +86,14 @@ INST1			:		LABEL ':' INST
 							}
 				;
 
-INST			:		IE REGISTER ',' REGISTER ',' NUMBER
-							{var temp = instrucao.getOp($1);			//valor do op
+INST			:		IE REGISTER ',' REGISTER ',' NUMBER				
+							{var temp = instrucao.getOp($1);			//IE
 							temp = temp << 26;
 							binario |= temp;
-							temp = regs.getNumero($4);					//valor do rs
+							temp = regs.getNumero($4);					
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($2);					//valor do rs
+							temp = regs.getNumero($2);					
 							temp = temp << 16;
 							binario |= temp;
 							temp = $6 & 65535;
@@ -102,46 +102,46 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							$$ = binario;
 							memoria.setConteudo(yylineno, $$);
 							}
-				|		IC REGISTER ',' NUMBER '('REGISTER ')' 
-						   {var temp = instrucao.getOp($1);             //valor do op
+				|		IC REGISTER ',' NUMBER '('REGISTER ')' 			
+						   {var temp = instrucao.getOp($1);             //IC
 						   	var binario = 0;
 							temp = temp << 26;
 						    binario |= temp;
-							temp = regs.getNumero($6);             // valor do rs
+							temp = regs.getNumero($6);
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($2);             //valor do rt
+							temp = regs.getNumero($2);             
 							temp = temp << 16;
 							binario |= temp;
 							temp = $4 & 65535;
 							temp = Math.floor(temp/4);
-							binario |= temp;                              // valor do end.
+							binario |= temp;                              
 							binario = (binario>>>0);
 							$$ = binario ;
 							memoria.setConteudo(yylineno, $$);
 							}
-				|		R REGISTER ',' REGISTER ',' REGISTER 
-							{var temp = instrucao.getOp($1);			//valor do op
+				|		R REGISTER ',' REGISTER ',' REGISTER			
+							{var temp = instrucao.getOp($1);			//R
 							var binario = 0;
 							binario = temp << 26;
-							temp = regs.getNumero($4);					//valor do rs
+							temp = regs.getNumero($4);					
 							temp = temp << 21;
 							binario |= temp;
-							temp = regs.getNumero($6);					//valor do rt
+							temp = regs.getNumero($6);					
 							temp = temp << 16;
 							binario |= temp;
-							temp = regs.getNumero($2);					//valor do rd
+							temp = regs.getNumero($2);					
 							temp = temp << 11;
 							binario |= temp;
-							temp = 0;									//valor do shamt
+							temp = 0;									
 							temp = temp << 6;
 							binario |= temp;
-							binario |= instrucao.getFunct($1);			//valor do funct
+							binario |= instrucao.getFunct($1);			
 							$$ = binario;
 							memoria.setConteudo(yylineno, $$);
 							}
-				|		JR REGISTER   
-							{
+				|		JR REGISTER										
+							{											//JR
 							 var temp = instrucao.getOp($1);
 							 var binario = 0 ;
 							 binario= temp << 26;
@@ -162,8 +162,8 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							 memoria.setConteudo(yylineno, $$);
 							}
 							
-				|		JR RA
-							{
+				|		JR RA											
+							{											//JR
 							 var temp = instrucao.getOp($1);
 							 var binario = 0 ;
 							 binario= temp << 26;
@@ -184,9 +184,9 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							 memoria.setConteudo(yylineno, $$);
 							}
 				|
-				        J  NUMBER 
-						    {
-		                     var temp = instrucao.getOp($1);
+				        J  NUMBER 										
+						    {											
+		                     var temp = instrucao.getOp($1);			//J
                              var binario = 0;
                              binario = temp << 26;
 							 binario |= $2;
@@ -195,9 +195,9 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
        						}
        						
        			|
-       					J LABEL
-       						{
-       						 var temp = instrucao.getOp($1);
+       					J LABEL										
+       						{											
+       						 var temp = instrucao.getOp($1);			//J
                              var binario = 0;
                              binario = temp << 26;
                              temp = memoria.useLabel($2);
@@ -207,9 +207,9 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
        						}
        			
 				|
-				        IL REGISTER ',' REGISTER ',' LABEL
+				        IL REGISTER ',' REGISTER ',' LABEL			
 						    {
-	                         var temp = instrucao.getOp($1);
+	                         var temp = instrucao.getOp($1);			//IL
                              var binario = 0;
                              binario = temp << 26;
                              temp = regs.getNumero($2);
@@ -218,15 +218,15 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
                              temp = regs.getNumero($4);
                              temp = temp << 16;
                              binario |= temp;
-                             temp = memoria.useLabel($6);
+                             temp = (memoria.useLabel($6) - yylineno)/4;
                              binario |= temp;
                              binario = (binario>>>0);
                              $$ = binario;
                              memoria.setConteudo(yylineno, $$);	 
 							}
-				|		SR REGISTER ',' REGISTER ',' NUMBER 
+				|		SR REGISTER ',' REGISTER ',' NUMBER			
  							{
-							var temp = instrucao.getOp($1);
+							var temp = instrucao.getOp($1);				//SR
 							var binario =0;
 							binaro = temp << 26;
 							temp = 0;
@@ -245,9 +245,9 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							memoria.setConteudo(yylineno, $$);
 							}
 				|
-                        IU REGISTER ',' NUMBER 
+                        IU REGISTER ',' NUMBER 						
                             {
-							 var temp = instrucao.getOp($1);
+							 var temp = instrucao.getOp($1);			//IU
 							 var binario  = 0;
 							 binario = temp << 26;
 							 temp = 0;
@@ -261,8 +261,8 @@ INST			:		IE REGISTER ',' REGISTER ',' NUMBER
 							 $$ = binario;
 							 memoria.setConteudo(yylineno, $$);
 							 }
-                |       IJ REGISTER ',' REGISTER ',' NUMBER
-                           {var temp = instrucao.getOp($1);
+                |       IJ REGISTER ',' REGISTER ',' NUMBER				
+                           {var temp = instrucao.getOp($1);				//IJ
 						    var binario = 0;
 							binario = temp << 26;
 							temp = regs.getNumero($4);

@@ -9,42 +9,23 @@ $(document).ready(function () {
 	
 });
 
-/*function highlight(register, hltype) {
-	
-	switch(hltype) {
-		
-		/*
-			hltype = 0:		escrita
-			hltype = 1:		leitura
-			hltype = -1:	erro
-		
-		
-		case 0:
-			$('#'+register).addClass('success');
-			break;
-		case 1:
-			$('#'+register).addClass('info');
-			break;
-		case -1:
-			$('#'+register).addClass('error');
-			break;
-	}
-}*/
-
 function atalhos() {
 	
 	$(document).bind('keydown', 'Ctrl+space',function (){
 		$("#overall").stop().fadeIn();
+		$("#atalhos").stop().fadeIn();
 	});
 	$(document).bind('keydown','esc',function () {
 		$("#overall").stop().fadeOut();
+		$("#atalhos").stop().fadeOut();
+		$("#instrucoes").stop().fadeOut();
 	});
 	$(document).bind('keydown','Ctrl+o',function () {
 		$("#overall").stop().fadeOut();
 	});
-	$(document).bind('keydown','Ctrl+s',function () {
+	/*$(document).bind('keydown','Ctrl+s',function () {			Salvar um arquivo
 		$("#overall").stop().fadeOut();
-	});
+	});*/
 	$(document).bind('keydown','Ctrl+h',function () {
 		$("#overall").stop().fadeOut();
 	});
@@ -98,7 +79,7 @@ function imprimirMemoria() {
 	
 	while (memoria.getConteudo(j) != (null && 'undefined')) {
 		
-		$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" + "0x" + memoria.getConteudo(j).toString(16).toUpperCase() +"</td></tr>");
+		$('#memoria table tbody:last-child').append("<tr id='x" + j +"'><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" + "0x" + memoria.getConteudo(j).toString(16).toUpperCase() +"</td></tr>");
 		j++;
 	}
 	for(var i = 0; i < regs.lista.length; i++) {

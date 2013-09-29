@@ -112,7 +112,7 @@
 	overflow-x: hidden;
 }
 
-#tituloAtalhos {
+#tituloAtalhos, #tituloInstrucoes {
 	text-align: center;
 	border: 10px;
 	border-color: #000;
@@ -125,11 +125,15 @@
 	color: #333;
 }
 
-#tabelaIntrucoes tr td .badge, #atalhos tr td .badge {
+#tabelaInstrucoes tr td .badge, #tabelaAtalhos tr td .badge {
+	float: left;
 	font-size: 20px;
 	padding: 3px;
 	display: inline;
-	line-height: 50px;	
+	line-height: 40px;	
+}
+#tabelaInstrucoes tr td .badge {
+	line-height: 20px;
 }
 
 #foot {
