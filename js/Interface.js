@@ -7,6 +7,8 @@ $(document).ready(function () {
 	atalhos();
 	$('#codigo').numberfy();
 	
+	document.getElementById('abrir').value = '';
+	document.getElementById('codigo').value = '';
 });
 
 function atalhos() {
@@ -21,17 +23,15 @@ function atalhos() {
 		$("#instrucoes").stop().fadeOut();
 	});
 	$(document).bind('keydown','Ctrl+o',function () {
-		$("#overall").stop().fadeOut();
+		$('#abrir').trigger('click');
 	});
 	/*$(document).bind('keydown','Ctrl+s',function () {			Salvar um arquivo
 		$("#overall").stop().fadeOut();
 	});*/
-	$(document).bind('keydown','Ctrl+h',function () {
-		$("#overall").stop().fadeOut();
-	});
-	$(document).bind('keydown','f8',function () {
+	$(document).bind('keydown','Ctrl+f8',function () {
 		$("#overall").stop().fadeIn();
 		$("#instrucoes").css('display', 'block');
+		$("#tutorial").trigger('click');
 	});
 	$(document).bind('keydown','Ctrl+f9',function () {
 		$(this).stop().exec(uc.compilar());
@@ -42,7 +42,26 @@ function atalhos() {
 		
 	$('#overall').click(function () {
 		$(this).stop().fadeOut();
+		$('#instrucoes').stop().fadeOut();
+		$('#atalhos').stop().fadeOut();
 });
+}
+
+function copiarConteudo(input) {
+	
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		
+		reader.readAsText(input.files[0]);
+		reader.onloadend = function (e) {
+			document.getElementById('codigo').value = e.target.result;
+		};
+		document.getElementById('codigo').value = reader.result;
+		
+		$('#nomeDoArquivo').html(input.value);
+	}
+	
+	
 }
 
 function verificarValor (inputtexto) {
@@ -95,4 +114,10 @@ function imprimirMemoria() {
 function modificaValor(registrador) {
 	$('#'+registrador.numero+' td input').val(registrador.valor);
 	$('#'+registrador.numero).addClass('success');
+}
+
+function abrirArquivo() {
+	
+	$('#abrir').trigger('click');
+	
 }

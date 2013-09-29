@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Tutorial SIAMS</title>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			
+                 <section>
+                 <h1></h1>
+                 <h1>Apresentação do SIAMS</a></h1>
+                         
+                 <p> Sejam Bem-vindos ao SIAMS</p>
+                 <p> <small>pressione a seta para o lado direito para mudar slide </small>
+		 </p>
+               
+                 </section>
+                 
+                 
+                 <section><h1>SIAMS</h1>
+                          <ul> 
+                            <li>Sobre o SIAMS</li>
+                            <h1>  </h1>
+                            <li>Atalhos</li>
+                            <h1>  </h1>  
+                            <li>Instruções Básicas</li>
+                            <h1></h1>                          
+                            <li>Exemplos</li>
+                            <h1></h1>                          
+                            <li>Considerações finais</li>
+                            
+                         </ul> 
+                  </section>
+                   <section>
+		        <h3>Sobre o SIAMS</h3>
+			<p>O SIAMS é um programa fácil de usar feito com a finalidade de ajudar principalmente a comunidade acadêmica a aprender a lingaguem de programação MIPS. Ele possui interface amigável e fácil de usar.<br/>SIAMS  é composto por um  editor onde deve-se inserir o código em MIPS, uma tabela que mostra o valor dos registradores e também uma aba onde é possível ver os endereços da memória onde estão sendo utilizados pelo código do programa</p>
+                        
+                  </section>
+                  <section>
+		        <h3>Sobre o SIAMS<br><br></h3>
+			<p>O nome SIAMS é um acrônimo e significa <strong>S</strong>iams <strong>I</strong>s <strong>A</strong> <strong>M</strong>ips <strong>S</strong>imulator</p>
+                        
+                  </section>
+                  
+                 <section>
+                     <h3>Sobre o SIAMS</h3>
+                     <p>O usuáro pode abrir um arquivo do disco rígido clicando em <strong>Abrir</strong>.
+                     </p>
+                     <p>Ao inserir o código e clicar em <strong>Montar</strong>, é gerado um código binário que é inserido na memória.</p>
+                     <p>Ao clicar em <strong>Executar</strong>,todo o código é compilado é executado de uma vez.</p>
+                     <p>Se você clicar em <strong>Step</strong> o código executado instrução por instrução, e é possivel  ver o valor dos registradores sendo alterados na tabela do lado direito. </p>   
+                </section>
+                
+                <section>
+
+                <ul>
+
+                <li><h3>Atalhos</h3></li>
+                  <table>
+                    </ul>
+                      <p> <strong> Ctrl + Espaço</strong> = Abre uma janela de atalhos</p>
+                      <p> <strong> Ctrl + O</strong> = Abrir um arquivo</p>
+                      <p> <strong> Ctrl + H</strong> = Abre a janela do tutorial</p>
+                      <p> <strong> Ctrl + P</strong> = Mostra as instruções existentes no programa</p>
+                
+                    </table>            
+                </section>
+                
+                <section>
+
+                <ul>
+
+                <li><h3>Instruções Básicas</h3></li> 
+                  
+
+                  <table>
+                    </ul>
+                      <p> <small><strong>add</strong> = Istrução de soma</small></p>
+                      <p> <small><strong>sub</strong> = Instrução de subtração</small></p>
+                      <p> <small><strong>lw</strong> = Dados da memória para o registrador</small></p>
+                      <p> <small><strong>sw</strong> = Dados do registrador para a memória</small></p>
+                      <p> <small><strong>and</strong> = Instrução lógica AND bit a bit</small></p>
+                      <p> <small><strong>or</strong> = Instrução lógica OR bit a bit</small></p>
+                      <p> <small><strong>nor</strong> = Instrução lógica NOR bit a bit</small></p>
+                      <p> <small><strong>andi</strong> = Instrução lógica AND bit a bit com contante</small></p>
+                      <p> <small><strong>ori</strong> = Instrução lógica OR bit a bit com constante</small></p>
+                      <p> <small><strong>sll</strong> = Deslocamento bit a bit à esquerda por constante</small></p>
+                      <p> <small><strong>srl</strong> = Deslocamento bit a bit à direita por constante</small></p>
+                    
+                  </table>            
+                 </section>
+          
+                  <section>
+
+                <ul>
+
+                <li><h3>Instruções Básicas</h3></li> 
+                  
+
+                  <table>
+                    </ul>
+                      <p> <small><strong>beq</strong> = Teste igualdade e desvia</small></p>
+                      <p> <small><strong>bne</strong> = Teste desigualdade e desvia</small></p>
+                      <p> <small><strong>j</strong> = Desvia para o endereço de destino</small></p>
+                      <p> <small><strong>jr</strong> = Para retorno de procedimento</small></p>
+                      <p> <small><strong>jal</strong> = Para chamada de procedimento</small></p>
+                      <h1></h1>
+                      <p>Essas são algumas das  instruções básicas úteis em MIPS</p>
+                  </table>            
+                </section>
+                 
+      
+                
+
+                <section>
+                <ul>
+                <li> Exemplo 1:<br/></li>
+                </ul>
+                <pre><code data-trim style="font-size: 18px; margin-top: 20px;">
+                     Loop: sll $t1,$s3,2  #Reg.temporario $t1= 4*i
+                        add $t1,$t1,$s6   # $t1 = endereço de save[i]
+                        lw $t0,0($t1)     # Reg. temporário  $t0 = save[i]
+                        bne $t0,$s5,Exit  # Vai para Exit se save[i] != k
+                        addi $s3,$s3,1    # i = i+1
+                        j Loop            # vai para loop
+                     Exit:
+		</code></pre>
+		</section>
+                   
+                <section>
+                <ul>
+                <li> Exemplo 2:<br/></li>
+                </ul>
+                <pre><code data-trim style="font-size: 18px; margin-top: 20px;">
+                     fact:
+                        addi $sp,$sp,-8   #ajusta pilha para 2 itens
+                        sw   $ra,4($sp)   #salva o endereço de retorno
+                        sw   $a0,o($sp)   #salva argumento n
+                        slti $t0,$a0,1    #teste para n<1
+                        beq  $t0,$zero,L1 #se n >= 1 ,vai para L1
+                        addi $v0,$zero,1  #retorna 1
+                        addi $sp,$sp,8    #retira 2 itens da pilha  
+                        jr   $ra          #retorna para depois de jal 
+                     L1:addi $a0,$a0,-1   #n >= 1: argumento recebe (n-1)
+                        jal  fact         #chama fact com (n-1) 
+                        lw   $a0,0($sp)   #retorna de jal : restaura argumento n 
+                        lw   $ra,4($sp)   #restaura o endereço de retorno 
+                        addi $sp,$sp,8    #ajusta stack pointer para retirar 2 itens
+                        mul  $vo,$a0,$v0  #retorna n * fact(n-1)
+                        jr   $ra          #retorna para o procedimento que chamou
+                           
+		</code></pre>
+		</section>
+		 <section>
+		        <h3>Considerações finais</h3>
+			<p>Hoje o SIAMS não está tão robusto quanto poderia estar. Mas o projeto terá continuação e novas versões serão lançadas com melhorias na interface, desempenho e mais funcionalidades.</p>
+                        
+         </section>
+         <section>
+		        <h3>Considerações finais</h3>
+			<p>Este projeto foi desenvolvido para a disciplina de Arquitetura 1 com o professor Filipe Braida no período 2013-1 do curso de Ciências da Computação na UFRRJ Nova Iguaçu. O grupo foi composto por:</p>
+            <ul> 
+				<li>Cassiano Honório da Silva</li>
+				<h1></h1>
+				<li>Carlos Henrique Lima Braz</li>
+				<h1></h1>  
+				<li>William Messias da Costa</li>
+				<h1></h1>            
+				<li>Francisco Sancas Junior</li>
+			</ul>
+         </section>
+
+           
+        	</div>                
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script>
+			
+			Reveal.initialize({
+				controls: true, 
+			});
+		</script>
+	</body>
+</html>

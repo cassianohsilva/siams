@@ -34,11 +34,12 @@
 	<script type="text/javascript">
 		var interp = new Interpretador();
 		var uc = new UC();
+		
 	</script>
 	
 </head>
 <body>
-
+<input type="file" id="abrir" value="" onchange="copiarConteudo(this);" style="display:none;" />
 <!-- Top Navbar -->
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -46,7 +47,8 @@
 	<div class="container-fluid">
 		<a class="brand">SIAMS</a>
 		<ul class="nav">
-			<li><a id="botaoPrincipal" accesskey=/ href="#">Principal</a></li>
+			<li><a id="botaoPrincipal" href="#">Principal</a></li>
+			<li><a id="tutorial" href="tutorial.html" target="_blank">Tutorial</a></li>
 		</ul>		
 	</div>
 	</div>
@@ -64,9 +66,9 @@
 						<h3>Editor</h3>
 						<div class="botoes">
 						<ul id="barramenu" class="nav nav-tabs">		<!-- Barra de ferramentas -->
-							<li><a href="#"><i class="icon-file"></i><br/>Novo</a></li>
-							<li><a href="#"><i class="icon-folder-open"></i><br/>Abrir</a></li>
-							<li><a href="#"><i class="icon-download"></i><br/>Salvar</a></li>
+							<!--<li><a href="#"><i class="icon-file"></i><br/>Novo</a></li>-->
+							<li><a id="botaoAbrir" onclick="abrirArquivo();"><i class="icon-folder-open"></i><br/>Abrir</a></li>
+							<!--<li><a href="#"><i class="icon-download"></i><br/>Salvar</a></li>-->
 							<li><a href="javascript:uc.montar();"><i class="icon-check"></i><br/>Montar</a></li>
 							<li><a href="javascript:uc.montar(); uc.executar();"><i class="icon-play"></i><br/>Executar</a></li>
 							<li><a href="javascript:uc.step();"><i class="icon-step-forward"></i><br/>Step</a></li>
@@ -74,7 +76,7 @@
 						</div>
 						<div>
 						<ul id="arquivos" class="nav nav-tabs">		<!-- Barra de Arquivos -->
-							<li><a href="#">Sem Título 1 <i class="icon-remove" onclick=""></i></a></li>
+							<li><a id="nomeDoArquivo" href="#">Sem Título</a></li>
 						</ul>
 						</div>
 						<div id="divCodigo">
@@ -124,13 +126,13 @@
 				<span class="badge badge-info">Ctrl+O</span>
 				<h4>Abrir um arquivo<br/></h4>
 				
-				<span class="badge badge-info">Ctrl+S</span>
-				<h4>Salvar um arquivo<br/></h4>
+				<!--<span class="badge badge-info">Ctrl+S</span>
+				<h4>Salvar um arquivo<br/></h4> -->
 				
 				<span class="badge badge-info">Ctrl+H</span>
 				<h4>Ir para janela de tutorial<br/></h4>
 				
-				<span class="badge badge-info">Ctrl+P</span>
+				<span class="badge badge-info">Ctrl+F8</span>
 				<h4>Mostrar instruções<br/></h4>
 				
 			</div>
