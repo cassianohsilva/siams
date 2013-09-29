@@ -39,7 +39,7 @@ function UC() {
 	this.executar = function() {
 		
 		var t = 0, j = 0;
-		var breakpoint = $('#x'+j+' td input').attr('checked');
+		var breakpoint = $('#x'+j+' td input').is(':checked');
 		while(memoria.getConteudo(regs.pc.valor) != 2147483648 && !breakpoint) {
 			
 			$('#'+t.numero).removeClass('success');
@@ -60,7 +60,7 @@ function UC() {
 		
 			regs.incrementaPc(4);
 			j++;
-			breakpoint = $('#x'+j+' td input').attr('checked');
+			breakpoint = $('#x'+j+' td input').is(':checked');
 		}
 		regs.setPc(0);
 	}

@@ -8,7 +8,7 @@ function UC() {
 		memoria.emptyLabels();
 		memoria.pegarLabels();
 		Montador.parse(codigo);
-		
+		 
 		imprimirMemoria();
 	}
 
