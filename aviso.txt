@@ -1,1 +1,0 @@
-acabei de testar o addi aqui e está funcionando normalmente. Eu testei no firefox para linux e executou sem problemas. Não sei o que aconteceu aí.
