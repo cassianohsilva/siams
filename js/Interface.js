@@ -9,7 +9,30 @@ $(document).ready(function () {
 	
 	document.getElementById('abrir').value = '';
 	document.getElementById('codigo').value = '';
+	
+	estaMontado(false);
 });
+
+function limparTudo() {
+	regs.limparRegistradores();
+	memoria.limparMemoria();
+	
+	$('#tabelaRegistradores tbody tr').removeClass('success');
+	imprimirMemoria();
+	
+	montado = false;
+	estaMontado(montado);
+}
+
+function estaMontado(montado) {
+	if (!montado) {
+		$('#step').attr('href', '#').css('color','rgba(0, 0, 0, 0.5)');		
+		$('#executar').attr('href', '#').css('color','rgba(0, 0, 0, 0.5)');
+	} else {
+		$('#step').attr('href', 'javascript:uc.step();').css('color','rgba(0, 0, 0, 1)');
+		$('#executar').attr('href', 'javascript:uc.executar();').css('color','rgba(0, 0, 0, 1)');
+	}
+}
 
 function atalhos() {
 	
@@ -94,11 +117,11 @@ function imprimirMemoria() {
 	
 	var j = 0;
 	
-	$('#memoria table').html("<tr><th>Brkp</th><th>Posição</th><th>Valor</th></tr>");
+	$('#memoria table').html("<tr><th>Posição</th><th>Valor</th></tr>");
 	
 	while (memoria.getConteudo(j) != (null && 'undefined')) {
 		
-		$('#memoria table tbody:last-child').append("<tr id='x" + j +"'><td style='text-align:center;'><input type='checkbox' ></td><td>"+ j +"</td><td>" + "0x" + memoria.getConteudo(j).toString(16).toUpperCase() +"</td></tr>");
+		$('#memoria table tbody:last-child').append("<tr id='x" + j +"'><td>"+ j +"</td><td>" + "0x" + memoria.getConteudo(j).toString(16).toUpperCase() +"</td></tr>");
 		j++;
 	}
 	for(var i = 0; i < regs.lista.length; i++) {
@@ -106,14 +129,16 @@ function imprimirMemoria() {
 		var tempvalor = regs.lista[i].valor;
 		
 		if (memoria.getConteudo(tempvalor) != (null && 'undefined') && tempvalor > j) {
-			$('#memoria table tbody:last-child').append("<tr><td style='text-align:center;'><input type='checkbox' ></td><td>"+ tempvalor +"</td><td>" + memoria.getConteudo(tempvalor) +"</td></tr>");
+			$('#memoria table tbody:last-child').append("<tr><td>"+ tempvalor +"</td><td>" + memoria.getConteudo(tempvalor) +"</td></tr>");
 		}
 	}
 }
 
-function modificaValor(registrador) {
+function modificaValor(registrador, cor) {
 	$('#'+registrador.numero+' td input').val(registrador.valor);
-	$('#'+registrador.numero).addClass('success');
+	if (cor) {
+		$('#'+registrador.numero).addClass('success');
+	}
 }
 
 function abrirArquivo() {

@@ -6,7 +6,8 @@
 		memoria[posicao] = valor;
 	}
 	
-	this.getConteudo = function (posicao) {
+	this.getConteudo = function (posicao) {		
+		
 		return memoria[posicao];
 	}
 
@@ -46,5 +47,5 @@
 	
 	this.emptyLabels = function () { labels = [];}
 
-	this.emptyMemory = function () {memoria = [];}
+	this.limparMemoria = function () {memoria = [];}
 };

@@ -136,6 +136,16 @@ function Registradores () {
 		valor : 0
 	};
 	
+	this.limparRegistradores = function () {
+		for (var k = 0; k < this.lista.length; k++) {
+			this.lista[k].valor = 0;
+			if (this.lista[k].nome == '$sp') {
+				this.lista[k].valor = 1073741823;
+			}
+			modificaValor(this.lista[k], false);
+		}
+	}
+	
 	this.getNumero = function (nome) {
 		for (var i = 0; i < this.lista.length; i++) {
 			if(this.lista[i].nome == nome) {

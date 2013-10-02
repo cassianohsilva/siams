@@ -33,8 +33,7 @@ function Interpretador() {
 	},{
 		funct: 2,                              // srl
 		funcao: function(r1, r2, r3) {
-			
-			r1.valor = r2.valor >> r3;
+			r1.valor = r2.valor << r3;
 			return r1;
 		}
 	},{
@@ -113,7 +112,7 @@ function Interpretador() {
 		op: 4,
 		funcao: function(r1, r2, num) {	
 	    	if(r1.valor == r2.valor)
-	        	regs.incrementaPc((num-1)*4);
+	        	regs.incrementaPc((num-3)*4);
 	        	return regs.pc
 			}		
      },{
@@ -121,10 +120,10 @@ function Interpretador() {
 		op: 5,          
         funcao: function(r1, r2, num){
         	if(r1.valor != r2.valor)
-				regs.incrementaPc((num-1)*4);
+				regs.incrementaPc((num-3)*4);
 				return regs.pc;
 		}		
-	},{
+	}/*,{
          //blez
 		op: 6,          
 		funcao: function(r1){
@@ -144,7 +143,7 @@ function Interpretador() {
 				return false;
 	 		}
         }    
-	},{
+	}*/,{
            //addi
 		op: 8,       
 		funcao: function(r1 , r2, num){
@@ -209,6 +208,9 @@ function Interpretador() {
         funcao: function(r1, r2, num){
         	var temp = memoria.getConteudo(r2.valor + Math.floor(num/4));
         	r1.valor = temp & 255;
+        	if (typeof r1.valor === 'undefined') {
+				r1.valor = 0;
+			}
         	return r1;
         }
      },{
@@ -217,6 +219,9 @@ function Interpretador() {
         funcao: function(r1, r2, num){
         	var temp = memoria.getConteudo(r2.valor + Math.floor(num/4));
         	r1.valor = temp & 65535;
+        	if (typeof r1.valor === 'undefined') {
+				r1.valor = 0;
+			}
         	return r1;
         }
      },{
@@ -224,6 +229,10 @@ function Interpretador() {
         op: 35,
         funcao: function(r1, r2, num){
         	r1.valor = memoria.getConteudo(r2.valor + Math.floor(num/4));
+        	if (typeof r1.valor === 'undefined') {
+				r1.valor = 0;
+			}
+			
         	return r1;
         }
      },{
@@ -276,7 +285,7 @@ function Interpretador() {
 		}
 	    	
 		if(instr.op == 0) {
-			if (instr.funct != (0 || 2)) {
+			if (instr.funct != (0 && 2)) {
 				for (var i = 0; i < this.listaArit.length; i++) { 		//tipo R
 					if (this.listaArit[i].funct == instr.funct) {
 						return this.listaArit[i].funcao(regs.lista[instr.rd], regs.lista[instr.rs], regs.lista[instr.rt]);
